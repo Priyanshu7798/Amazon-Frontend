@@ -65,8 +65,6 @@
 //     priceCents:2400
 // }];
 
-import {cart} from '../data/cart.js';
-
 let productHTML='';
 products.forEach((product)=>{
         productHTML +=`
@@ -92,8 +90,8 @@ products.forEach((product)=>{
         $${product.priceCents/100}
         </div>
 
-        <div class="product-quantity-container">
-        <select>
+        <div class="product-quantity-container ">
+        <select class="js-quantity-selector-${products.id}">
             <option selected value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -114,7 +112,7 @@ products.forEach((product)=>{
         Added
         </div>
 
-        <button class="add-to-cart-button button-primary js-add " data-product-id="${product.id}">
+        <button class="add-to-cart-button button-primary js-add " data-product-id="${products.id}">
         Add to Cart
         </button>
         </div> 
@@ -136,14 +134,14 @@ products.forEach((product)=>{
             }
         });
 
-        if(matchingItem){
-            matchingItem.quantity+=1;
-        } else{
-            cart.push({
-                productId: productId,
-                quantity :1
-            });
-        }
+        // if(matchingItem){
+        //     matchingItem.quantity+=1;
+        // }else{
+        //     cart.push({
+        //         productId:productId,
+        //         quantity:1
+        //     })
+        // }
 
         let cartQuantity=0;
 
@@ -153,5 +151,18 @@ products.forEach((product)=>{
 
         
         document.querySelector('.js-cart-quantity').innerHTML=cartQuantity;
+
+       const out=Number(document.querySelector(`.js-quantity-selector-${products.id}`).value);
+
+       
+        if(matchingItem){
+            matchingItem.quantity+=out;
+        } else {
+            cart.push({
+                productId:productId,
+                quantity:1,
+                quantity:out
+            });
+        }
     })
  })
