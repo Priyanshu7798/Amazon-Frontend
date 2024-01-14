@@ -141,4 +141,5 @@ products.forEach((product)=>{
         addToCart(productId);
         sumToCart();
     })
+    console.log(sumToCart())
  })
